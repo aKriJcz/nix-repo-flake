@@ -1,7 +1,7 @@
 {
   description = "Set of nixpkgs modifications to be shared in NixOS and dev envs";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
   #inputs.flake-utils = {
   #  url = "github:numtide/flake-utils";
@@ -23,10 +23,10 @@
             # Packages generated with nix-generate-from-cpan goes here
             DBDFirebird = buildPerlPackage {
               pname = "DBD-Firebird";
-              version = "1.38";
+              version = "1.39";
               src = fetchurl {
-                url = "mirror://cpan/authors/id/D/DA/DAM/DBD-Firebird-1.38.tar.gz";
-                hash = "sha256-SwJ5lrnJzVs9tVLNBf+8zClb/Mu5uWQODFXPxzm7Liw=";
+                url = "mirror://cpan/authors/id/D/DA/DAM/DBD-Firebird-1.39.tar.gz";
+                hash = "sha256-I1s2uB2QNoeepk17HS9fgbDClwE9bcBxTCVj2r0KAhQ=";
               };
               buildInputs = [ FileWhich TestCheckDeps TestDeep TestException self.firebirds.firebird_5 ];
               propagatedBuildInputs = [ DBI ];
