@@ -21,6 +21,7 @@
             inherit (self) lib fetchurl;
           in {
             # Packages generated with nix-generate-from-cpan goes here
+
             DBDFirebird = buildPerlPackage {
               pname = "DBD-Firebird";
               version = "1.39";
@@ -39,6 +40,22 @@
                 license = with lib.licenses; [ artistic1 gpl1Plus ];
               };
             };
+
+            ParseANSIColorTiny = buildPerlPackage {
+              pname = "Parse-ANSIColor-Tiny";
+              version = "0.700";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/R/RW/RWSTAUNER/Parse-ANSIColor-Tiny-0.700.tar.gz";
+                hash = "sha256-zhtQMHv5vaEur/Hf2NAJGIFaahMC+BURDWufiq8+SdA=";
+              };
+              buildInputs = [ TestDifferences TestRequires ];
+              meta = {
+                homepage = "https://github.com/rwstauner/Parse-ANSIColor-Tiny";
+                description = "Determine attributes of ANSI-Colored string";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
           };
         };
 
