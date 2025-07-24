@@ -59,6 +59,8 @@
           };
         };
 
+        huestacean = self.libsForQt5.callPackage ./pkgs/huestacean { inherit (self.xorg) libX11 libXext libXinerama libXfixes libXtst; };
+
       };
     };
 }
