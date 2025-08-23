@@ -149,6 +149,18 @@
               };
             };
 
+            LWPProtocolsocks = buildPerlPackage {
+              pname = "LWP-Protocol-socks";
+              version = "1.7";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/S/SC/SCR/LWP-Protocol-socks-1.7.tar.gz";
+                hash = "sha256-dox/gNwgqOkap4aPVIGT7bENyhYDlRnZff8mkMu0C04=";
+              };
+              propagatedBuildInputs = [ IOSocketSSL IOSocketSocks LWP LWPProtocolhttps ];
+              meta = {
+              };
+            };
+
           };
         };
 
