@@ -161,6 +161,110 @@
               };
             };
 
+            HTMLRestrict = buildPerlPackage {
+              pname = "HTML-Restrict";
+              version = "3.0.2";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/O/OA/OALDERS/HTML-Restrict-v3.0.2.tar.gz";
+                hash = "sha256-XocMs/fmT3n9/I2YR0jbxjsH7BiLBkHVjO3RkN2bKeA=";
+              };
+              buildInputs = [ TestFatal ];
+              propagatedBuildInputs = [ DataDump HTMLParser Moo SubQuote TypeTiny URI namespaceclean ];
+              meta = {
+                homepage = "https://github.com/oalders/html-restrict";
+                description = "Strip unwanted HTML tags and attributes";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
+            HTTPCookieMonster = buildPerlPackage {
+              pname = "HTTP-CookieMonster";
+              version = "0.11";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/O/OA/OALDERS/HTTP-CookieMonster-0.11.tar.gz";
+                hash = "sha256-b1ktTN9o4jMN7pPdOCB8efP8GUUTvrrLj1/Taf0AtmM=";
+              };
+              buildInputs = [ TestFatal ];
+              propagatedBuildInputs = [ HTTPCookies Moo SafeIsa SubExporter URI ];
+              meta = {
+                homepage = "https://github.com/oalders/http-cookiemonster";
+                description = "Easy read/write access to your jar of HTTP::Cookies";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
+            StringTrim = buildPerlPackage {
+              pname = "String-Trim";
+              version = "0.005";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/D/DO/DOHERTY/String-Trim-0.005.tar.gz";
+                hash = "sha256-sWniCwJHbzCP7AQlx1B3/WqFH1eLTqNwPmIgZZ1zsx8=";
+              };
+              meta = {
+                description = "Trim whitespace from your strings";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
+            TextSimpleTableAutoWidth = buildPerlPackage {
+              pname = "Text-SimpleTable-AutoWidth";
+              version = "0.09";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/C/CU/CUB/Text-SimpleTable-AutoWidth-0.09.tar.gz";
+                hash = "sha256-HBdujhwBu+hqfzrN5Ec/DwNNQQBQJG8uukz2igja9kM=";
+              };
+              propagatedBuildInputs = [ Moo TextSimpleTable ];
+              meta = {
+                description = "Text::SimpleTable::AutoWidth - Simple eyecandy ASCII tables with auto-width selection";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
+            ParseMIME = buildPerlPackage {
+              pname = "Parse-MIME";
+              version = "1.006";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/A/AR/ARISTOTLE/Parse-MIME-1.006.tar.gz";
+                hash = "sha256-k9cfD6KbZqBm41Guq5cDYrLI7f47FqArMhZJcgrDfio=";
+              };
+              meta = {
+                description = "Parse mime-types, match against media ranges";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
+            PlackTestAgent = buildPerlPackage {
+              pname = "Plack-Test-Agent";
+              version = "1.6";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/O/OA/OALDERS/Plack-Test-Agent-1.6.tar.gz";
+                hash = "sha256-QsqXD8wnYmA4COyGikN7eGLHjwmD7Oai/duZD7rp4IA=";
+              };
+              buildInputs = [ HTTPServerSimplePSGI ModernPerl TestMemoryCycle TestRequires TestSharedFork TestLongString ];
+              propagatedBuildInputs = [ HTTPCookies HTTPMessage Plack TestTCP TestWWWMechanize ];
+              meta = {
+                homepage = "https://github.com/oalders/Plack-Test-Agent";
+                description = "OO interface for testing low-level Plack/PSGI apps";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
+            LWPConsoleLogger = buildPerlPackage {
+              pname = "LWP-ConsoleLogger";
+              version = "1.000001";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/O/OA/OALDERS/LWP-ConsoleLogger-1.000001.tar.gz";
+                hash = "sha256-UPB6yTi/oeHCjsla85/RJWnXYfmrzZ7j8imb9XehikI=";
+              };
+              buildInputs = [ CaptureTiny HTMLFormatTextWithLinks HTTPCookieJar HTTPServerSimplePSGI LWP LogDispatchArray PathTiny Plack PlackTestAgent TestFatal TestLWPUserAgent TestMost TestWarnings WWWMechanize TestSharedFork TestLongString TestException TestDifferences TestDeep TestWarn ];
+              propagatedBuildInputs = [ ClassMethodModifiers DataPrinter DateTime HTMLRestrict HTTPBody HTTPCookieMonster HTTPMessage JSONMaybeXS ListAllUtils LogDispatch ModuleRuntime Moo MooXStrictConstructor ParseMIME RefUtil StringTrim SubExporter TermSizeAny TextSimpleTableAutoWidth TryTiny TypeTiny URI XMLSimple ];
+              meta = {
+                homepage = "https://github.com/oalders/lwp-consolelogger";
+                description = "LWP tracing and debugging";
+                license = lib.licenses.artistic2;
+              };
+            };
+
           };
         };
 
