@@ -8,10 +8,10 @@
 let
   perlnavigator-pkg = stdenv.mkDerivation rec {
   name = "perlnavigator";
-  version = "0.8.18";
+  version = "0.8.20";
   src = fetchurl {
     url = "https://github.com/bscan/PerlNavigator/releases/download/v${version}/${name}-linux-x86_64.zip";
-    hash = "sha256-G8YMIAQOWCV7uvtA7LtH671427pUExIWKEuG8mIj1G0=";
+    hash = "sha256-WinIppGcMsa0fwWrHtOPYv/6VuwXUrjp1iReF3ujLNI=";
   };
 
   buildCommand = ''

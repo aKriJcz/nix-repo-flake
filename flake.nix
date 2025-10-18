@@ -265,6 +265,37 @@
               };
             };
 
+            FFIPlatypusLangCPP = buildPerlPackage {
+              pname = "FFI-Platypus-Lang-CPP";
+              version = "0.06";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/P/PL/PLICEASE/FFI-Platypus-Lang-CPP-0.06.tar.gz";
+                hash = "sha256-0SfHFPyQxgGPst1nyc1aDz3swkgHtIJp+MYEcynCSuM=";
+              };
+              buildInputs = [ FFICheckLib FileWhich ];
+              propagatedBuildInputs = [ FFIExtractSymbols FFIPlatypus ];
+              meta = {
+                description = "Documentation and tools for using Platypus with the C++ programming language";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
+            FFIExtractSymbols = buildPerlPackage {
+              pname = "FFI-ExtractSymbols";
+              version = "0.07";
+              src = fetchurl {
+                url = "mirror://cpan/authors/id/P/PL/PLICEASE/FFI-ExtractSymbols-0.07.tar.gz";
+                hash = "sha256-gV+VZ1x3mC1IJF8fwoYXuv1yQVV2/suJhenTnToFmEU=";
+              };
+              buildInputs = [ FFICheckLib ];
+              propagatedBuildInputs = [ FFIPlatypus FileShareDirDist FileWhich PathTiny ];
+              meta = {
+                homepage = "https://metacpan.org/pod/FFI::ExtractSymbols";
+                description = "Extract symbol names from a shared object or DLL";
+                license = with lib.licenses; [ artistic1 gpl1Plus ];
+              };
+            };
+
           };
         };
 
