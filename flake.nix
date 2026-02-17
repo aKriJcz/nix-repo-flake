@@ -12,6 +12,7 @@
     #flake-utils.lib.eachDefaultSystem (system: {
     #});
     {
+      # TODO: split overlay into more fine-grained ones (and packages) some day I have time for that..
       overlays.default = self: super: {
 
         firebirds = self.callPackage ./pkgs/firebird/default.nix {};
@@ -302,6 +303,18 @@
         perlnavigator = self.callPackage ./pkgs/perlnavigator/default.nix {};
 
         huestacean = self.libsForQt5.callPackage ./pkgs/huestacean { inherit (self.xorg) libX11 libXext libXinerama libXfixes libXtst; };
+
+
+        # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md#how-to-override-a-python-package-for-all-python-versions-using-extensions-how-to-override-a-python-package-for-all-python-versions-using-extensions
+        pythonPackagesExtensions = super.pythonPackagesExtensions ++ [
+          (python-self: python-super: {
+            mfusepy = python-self.callPackage ./pkgs/ratarmount/mfusepy.nix { };
+            ratarmount = python-self.callPackage ./pkgs/ratarmount/ratarmount-pymodule.nix { };
+            ratarmountcore = python-self.callPackage ./pkgs/ratarmount/ratarmountcore-pymodule.nix { inherit (super) zstd; };
+          })
+        ];
+
+        ratarmount = with self.python3Packages; toPythonApplication ratarmount;
 
       };
     };
