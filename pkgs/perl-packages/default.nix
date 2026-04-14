@@ -247,33 +247,49 @@ perlPackages: with perlPackages; {
     };
   };
 
-  FFIPlatypusLangCPP = buildPerlPackage {
-    pname = "FFI-Platypus-Lang-CPP";
-    version = "0.06";
+  PerlMinimumVersionFast = buildPerlModule {
+    pname = "Perl-MinimumVersion-Fast";
+    version = "0.22";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/P/PL/PLICEASE/FFI-Platypus-Lang-CPP-0.06.tar.gz";
-      hash = "sha256-0SfHFPyQxgGPst1nyc1aDz3swkgHtIJp+MYEcynCSuM=";
+      url = "mirror://cpan/authors/id/B/BD/BDFOY/Perl-MinimumVersion-Fast-0.22.tar.gz";
+      hash = "sha256-oV//8maXHVNiLajkg1JD1vlZQvxtAGKOXSFQCtjTSkU=";
     };
-    buildInputs = [ FFICheckLib FileWhich ];
-    propagatedBuildInputs = [ FFIExtractSymbols FFIPlatypus ];
+    buildInputs = [ ModuleBuildTiny ];
+    propagatedBuildInputs = [ CompilerLexer ];
     meta = {
-      description = "Documentation and tools for using Platypus with the C++ programming language";
+      homepage = "https://github.com/tokuhirom/Perl-MinimumVersion-Fast";
+      description = "Find a minimum required version of perl for Perl code";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
-  FFIExtractSymbols = buildPerlPackage {
-    pname = "FFI-ExtractSymbols";
-    version = "0.07";
+  TestMinimumVersionFast = buildPerlModule {
+    pname = "Test-MinimumVersion-Fast";
+    version = "0.04";
     src = fetchurl {
-      url = "mirror://cpan/authors/id/P/PL/PLICEASE/FFI-ExtractSymbols-0.07.tar.gz";
-      hash = "sha256-gV+VZ1x3mC1IJF8fwoYXuv1yQVV2/suJhenTnToFmEU=";
+      url = "mirror://cpan/authors/id/T/TO/TOKUHIROM/Test-MinimumVersion-Fast-0.04.tar.gz";
+      hash = "sha256-/ze7KsH+6Bt05x73YFDgo1hQUCevWBz9w/CZjZQ/y4A=";
     };
-    buildInputs = [ FFICheckLib ];
-    propagatedBuildInputs = [ FFIPlatypus FileShareDirDist FileWhich PathTiny ];
+    buildInputs = [ TestMinimumVersion ];
+    propagatedBuildInputs = [ FileFindRule FileFindRulePerl PerlMinimumVersionFast YAMLTiny ];
     meta = {
-      homepage = "https://metacpan.org/pod/FFI::ExtractSymbols";
-      description = "Extract symbol names from a shared object or DLL";
+      homepage = "https://github.com/tokuhirom/Test-MinimumVersion-Fast";
+      description = "Does your code require newer perl than you think?";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
+  TestSpellunker = buildPerlModule {
+    pname = "Spellunker";
+    version = "0.4.0";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/T/TO/TOKUHIROM/Spellunker-v0.4.0.tar.gz";
+      hash = "sha256-nKGfO2W3rNjactu49wrabodap7/8ILC35utrEJ06jJ0=";
+    };
+    propagatedBuildInputs = [ FileShareDir RegexpCommon ];
+    meta = {
+      homepage = "https://github.com/tokuhirom/Spellunker";
+      description = "Pure perl spelling checker implementation";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
