@@ -1,7 +1,10 @@
-{ lib, fetchurl, icu, firebird_5 }:
-
-perlPackages: with perlPackages; {
-
+# Returns a perlPackages extension: pFinal: pPrev: { ... }
+# pkgs is the system package set (for C libraries and lib).
+pkgs:
+pFinal: pPrev:
+let inherit (pkgs) lib fetchurl; in
+with pPrev;
+{
   # Packages generated with nix-generate-from-cpan goes here
 
   DBDFirebird = buildPerlPackage {
@@ -11,12 +14,9 @@ perlPackages: with perlPackages; {
       url = "mirror://cpan/authors/id/D/DA/DAM/DBD-Firebird-1.39.tar.gz";
       hash = "sha256-I1s2uB2QNoeepk17HS9fgbDClwE9bcBxTCVj2r0KAhQ=";
     };
-    buildInputs = [ FileWhich TestCheckDeps TestDeep TestException firebird_5 ];
+    buildInputs = [ FileWhich TestCheckDeps TestDeep TestException pkgs.firebirds.firebird_5 ];
     propagatedBuildInputs = [ DBI ];
-    # Embedded mode needs to find icu lib
-    LD_LIBRARY_PATH = lib.makeLibraryPath [ icu ];
-    #preConfigure = "export LD_LIBRARY_PATH=${self.firebird}/lib";
-    #makeMakerFlags = "EMBEDDED=0";
+    LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.icu ];
     meta = {
       description = "DBD::Firebird is a DBI driver for Firebird, written using Firebird C API";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
@@ -61,7 +61,7 @@ perlPackages: with perlPackages; {
       url = "mirror://cpan/authors/id/K/KA/KARUPA/TOML-Parser-0.91.tar.gz";
       hash = "sha256-KoUTuQTjd+DK5yaRC+Z29P+WvZYAAcNY3WbcfDeqmo4=";
     };
-    buildInputs = [ ModuleBuildTiny TestDeep TestDeepFuzzy ];
+    buildInputs = [ ModuleBuildTiny TestDeep pFinal.TestDeepFuzzy ];
     propagatedBuildInputs = [ TypesSerialiser ];
     meta = {
       homepage = "https://github.com/karupanerura/TOML-Parser";
@@ -78,7 +78,7 @@ perlPackages: with perlPackages; {
       hash = "sha256-f9XQIUDsDKKruhp+jQq8m+AlQE/HJRbw206h/i3VHDc=";
     };
     buildInputs = [ ModuleBuildTiny ];
-    propagatedBuildInputs = [ TOMLParser ];
+    propagatedBuildInputs = [ pFinal.TOMLParser ];
     meta = {
       homepage = "https://github.com/karupanerura/toml";
       description = "Parser for Tom's Obvious, Minimal Language";
@@ -94,7 +94,7 @@ perlPackages: with perlPackages; {
       hash = "sha256-GENbTQ4V8/AUoML0Q7PzTVvx5mobHLPq1oJ9iS/A5KQ=";
     };
     buildInputs = [ FileCopyRecursive JSON ModuleBuildTiny TestOutput TestRequires ];
-    propagatedBuildInputs = [ Appcpanminus DataSectionSimple FileWhich Filepushd ModuleCPANfile ModuleRuntime Moo PodMarkdown TOML TextMicroTemplate TryTiny URI ];
+    propagatedBuildInputs = [ Appcpanminus DataSectionSimple FileWhich Filepushd ModuleCPANfile ModuleRuntime Moo PodMarkdown pFinal.TOML TextMicroTemplate TryTiny URI ];
     meta = {
       homepage = "https://github.com/tokuhirom/Minilla";
       description = "CPAN module authoring tool";
@@ -124,7 +124,7 @@ perlPackages: with perlPackages; {
       hash = "sha256-rbyJ/7t1glno7RipuZMI7IU8rC+CinxlMM5jbRBW3js=";
     };
     buildInputs = [ TestFatal ];
-    propagatedBuildInputs = [ Timetimegm ];
+    propagatedBuildInputs = [ pFinal.Timetimegm ];
     meta = {
       description = "Abstract implementation of the F<cron(8)> scheduling";
       license = with lib.licenses; [ artistic1 gpl1Plus ];
@@ -139,8 +139,7 @@ perlPackages: with perlPackages; {
       hash = "sha256-dox/gNwgqOkap4aPVIGT7bENyhYDlRnZff8mkMu0C04=";
     };
     propagatedBuildInputs = [ IOSocketSSL IOSocketSocks LWP LWPProtocolhttps ];
-    meta = {
-    };
+    meta = { };
   };
 
   HTMLRestrict = buildPerlPackage {
@@ -238,8 +237,8 @@ perlPackages: with perlPackages; {
       url = "mirror://cpan/authors/id/O/OA/OALDERS/LWP-ConsoleLogger-1.000001.tar.gz";
       hash = "sha256-UPB6yTi/oeHCjsla85/RJWnXYfmrzZ7j8imb9XehikI=";
     };
-    buildInputs = [ CaptureTiny HTMLFormatTextWithLinks HTTPCookieJar HTTPServerSimplePSGI LWP LogDispatchArray PathTiny Plack PlackTestAgent TestFatal TestLWPUserAgent TestMost TestWarnings WWWMechanize TestSharedFork TestLongString TestException TestDifferences TestDeep TestWarn ];
-    propagatedBuildInputs = [ ClassMethodModifiers DataPrinter DateTime HTMLRestrict HTTPBody HTTPCookieMonster HTTPMessage JSONMaybeXS ListAllUtils LogDispatch ModuleRuntime Moo MooXStrictConstructor ParseMIME RefUtil StringTrim SubExporter TermSizeAny TextSimpleTableAutoWidth TryTiny TypeTiny URI XMLSimple ];
+    buildInputs = [ CaptureTiny HTMLFormatTextWithLinks HTTPCookieJar HTTPServerSimplePSGI LWP LogDispatchArray PathTiny Plack pFinal.PlackTestAgent TestFatal TestLWPUserAgent TestMost TestWarnings WWWMechanize TestSharedFork TestLongString TestException TestDifferences TestDeep TestWarn ];
+    propagatedBuildInputs = [ ClassMethodModifiers DataPrinter DateTime pFinal.HTMLRestrict HTTPBody pFinal.HTTPCookieMonster HTTPMessage JSONMaybeXS ListAllUtils LogDispatch ModuleRuntime Moo MooXStrictConstructor pFinal.ParseMIME RefUtil pFinal.StringTrim SubExporter TermSizeAny pFinal.TextSimpleTableAutoWidth TryTiny TypeTiny URI XMLSimple ];
     meta = {
       homepage = "https://github.com/oalders/lwp-consolelogger";
       description = "LWP tracing and debugging";
@@ -271,7 +270,7 @@ perlPackages: with perlPackages; {
       hash = "sha256-/ze7KsH+6Bt05x73YFDgo1hQUCevWBz9w/CZjZQ/y4A=";
     };
     buildInputs = [ TestMinimumVersion ];
-    propagatedBuildInputs = [ FileFindRule FileFindRulePerl PerlMinimumVersionFast YAMLTiny ];
+    propagatedBuildInputs = [ FileFindRule FileFindRulePerl pFinal.PerlMinimumVersionFast YAMLTiny ];
     meta = {
       homepage = "https://github.com/tokuhirom/Test-MinimumVersion-Fast";
       description = "Does your code require newer perl than you think?";
