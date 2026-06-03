@@ -293,4 +293,18 @@ with pPrev;
     };
   };
 
+  DigestxxHash = buildPerlModule {
+    pname = "Digest-xxHash";
+    version = "2.04";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/S/SA/SANKO/Digest-xxHash-2.04.tar.gz";
+      hash = "sha256-ITCtCQNtYQDKwqYujCtRCjB7RGLtm60UTgwCkFeB2/E=";
+    };
+    propagatedBuildInputs = [ MathInt64 ];
+    meta = {
+      description = "XxHash Implementation For Perl";
+      license = lib.licenses.bsd3;
+    };
+  };
+
 }
