@@ -307,4 +307,17 @@ with pPrev;
     };
   };
 
+  ImageHash = buildPerlPackage {
+    pname = "Image-Hash";
+    version = "0.06";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/R/RU/RUNARB/Image-Hash-0.06.tar.gz";
+      hash = "sha256-Bhrq6/3yAEQQeufA5jMXdwD4k/BTGAIEhMP+Uh8//kU=";
+    };
+    propagatedBuildInputs = [ FileSlurp GD ];
+    meta = {
+      description = "An image hashing library to calculate an images average hash, perception hash and difference hash";
+    };
+  };
+
 }
