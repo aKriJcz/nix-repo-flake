@@ -320,4 +320,25 @@ with pPrev;
     };
   };
 
+  DBDCSV = buildPerlPackage {
+    pname = "DBD-CSV";
+    version = "0.63";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/H/HM/HMBRAND/DBD-CSV-0.63.tgz";
+      hash = "sha256-DZAA4mwwD6I7BW47ZXQ8oWzqrpCZdTXSO4D96jDKVo4=";
+    };
+    propagatedBuildInputs = [
+      DBI
+      SQLStatement
+      TextCSV_XS
+    ];
+    meta = {
+      description = "DBI driver for CSV files";
+      license = with lib.licenses; [
+        artistic1
+        gpl1Plus
+      ];
+    };
+  };
+
 }
