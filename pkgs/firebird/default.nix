@@ -33,13 +33,13 @@ let base = {
 }; in rec {
 
   firebird_5 = stdenv.mkDerivation (base // rec {
-    version = "5.0.3";
+    version = "5.0.4";
 
     src = fetchFromGitHub {
       owner = "FirebirdSQL";
       repo = "firebird";
       rev = "v${version}";
-      sha256 = "sha256-80GWjusRzQiNbUFsAbg/Cj9+/WW3KuJjMSA72EZVhN8=";
+      sha256 = "sha256-IEWBEtXzvFtQIAC4EVzuJqvf6Z0SXBvjjRNrORptpEk=";
     };
 
     buildInputs = base.buildInputs ++ [ zlib unzip libtommath libtomcrypt ];
