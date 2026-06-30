@@ -341,4 +341,20 @@ with pPrev;
     };
   };
 
+  APIDocker = buildPerlPackage {
+    pname = "API-Docker";
+    version = "0.002";
+    src = fetchurl {
+      url = "mirror://cpan/authors/id/G/GE/GETTY/API-Docker-0.002.tar.gz";
+      hash = "sha256-DX534QLXAhQEplW9A9fUPijRsBGaYnC2Ss/jv0FCQb0=";
+    };
+    buildInputs = [ PathTiny ];
+    propagatedBuildInputs = [ JSONMaybeXS LogAny Moo URI namespaceclean ];
+    meta = {
+      homepage = "https://github.com/Getty/p5-api-docker";
+      description = "Perl client for the Docker Engine API";
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
+    };
+  };
+
 }
