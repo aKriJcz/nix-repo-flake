@@ -44,19 +44,33 @@
       packages = forAllSystems (system:
         let pkgs = pkgsFor system; in
         {
-          inherit (pkgs) perl firebirds perlnavigator ratarmount;
+          inherit (pkgs) perl firebirds perlnavigator ratarmount b-branch;
           huestacean = pkgs.huestacean;
         }
       );
 
 
-      # ── NixOS module ────────────────────────────────────────────────
+      # ── NixOS modules ───────────────────────────────────────────────
       # Consumers add to their flake inputs and then:
       #   imports = [ inputs.nix-repo-flake.nixosModules.default ];
       #   perlPackagesExtensions = [ myExtension ];
       # Requires nix-repo-flake.overlays.default in nixpkgs.overlays for
       # the perl rebuild to take effect.
       nixosModules.default = { imports = [ ./nixos/perl-extensions.nix ]; };
+
+      # Opt-in, not part of nixosModules.default:
+      #   imports = [ inputs.nix-repo-flake.nixosModules.b-branch ];
+      #   programs.b-branch.enable = true;
+      # Also requires overlays.default (the module defaults to pkgs.b-branch).
+      nixosModules.b-branch = ./nixos/b-branch.nix;
+
+
+      # ── home-manager modules ────────────────────────────────────────
+      #   imports = [ inputs.nix-repo-flake.homeModules.b-branch ];
+      #   programs.b-branch.enable = true;
+      # home-manager renamed `homeManagerModules` to `homeModules`; expose both.
+      homeModules.b-branch = ./home/b-branch.nix;
+      homeManagerModules.b-branch = self.homeModules.b-branch;
 
 
       # ── Default overlay ─────────────────────────────────────────────
@@ -71,6 +85,8 @@
         firebirds    = self.callPackage ./pkgs/firebird {};
 
         perlnavigator = self.callPackage ./pkgs/perlnavigator {};
+
+        b-branch = self.callPackage ./pkgs/bbranch {};
 
         huestacean = self.libsForQt5.callPackage ./pkgs/huestacean {
           inherit (self.xorg) libX11 libXext libXinerama libXfixes libXtst;
