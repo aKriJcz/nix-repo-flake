@@ -41,10 +41,11 @@
       # ── Individual packages ──────────────────────────────────────────
       # nix build .#firebirds.firebird_5
       # nix build .#perlnavigator
+      # nix build .#googletakeoutfixer
       packages = forAllSystems (system:
         let pkgs = pkgsFor system; in
         {
-          inherit (pkgs) perl firebirds perlnavigator ratarmount;
+          inherit (pkgs) perl firebirds perlnavigator ratarmount googletakeoutfixer;
           huestacean = pkgs.huestacean;
         }
       );
@@ -71,6 +72,8 @@
         firebirds    = self.callPackage ./pkgs/firebird {};
 
         perlnavigator = self.callPackage ./pkgs/perlnavigator {};
+
+        googletakeoutfixer = self.callPackage ./pkgs/googletakeoutfixer {};
 
         huestacean = self.libsForQt5.callPackage ./pkgs/huestacean {
           inherit (self.xorg) libX11 libXext libXinerama libXfixes libXtst;
