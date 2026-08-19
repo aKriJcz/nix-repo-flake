@@ -12,18 +12,21 @@
   rarfile,
   ratarmountcore,
   setuptools,
+  # Mount PDFs as archives, exposing their embedded/attached files. Pulls in pypdf
+  # and pillow via ratarmountcore's "pdf" extra.
+  enablePdf ? true,
 }:
 
 buildPythonPackage rec {
   pname = "ratarmount";
-  version = "1.2.1";
+  version = "1.3.0";
   pyproject = true;
 
   disabled = pythonOlder "3.6";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-KL4vG5R3uk0NjXXdvCRo/JBpcNNvSUC9ky0aUYGOBqA=";
+    hash = "sha256-npbw+IfbZ6PqaMTsxiXAWjY2zY8p2ASR6xcNk008qgA=";
   };
 
   pythonRelaxDeps = [ "python-xz" ];
@@ -39,7 +42,8 @@ buildPythonPackage rec {
     rapidgzip
     rarfile
     ratarmountcore
-  ];
+  ]
+  ++ lib.optionals enablePdf ratarmountcore.optional-dependencies.pdf;
 
   checkPhase = ''
     runHook preCheck

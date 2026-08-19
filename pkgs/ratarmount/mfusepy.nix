@@ -10,12 +10,12 @@
 
 buildPythonPackage rec {
   pname = "mfusepy";
-  version = "3.1.0";
+  version = "3.1.1";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-M7XhPRWVx6zwFx+zD6rxzkffSERXNSsdN5qeKzmsPT8=";
+    hash = "sha256-M47OVFE9fRpelJKDdnmgx0Muz5agNJCiaDoc4dGVcOE=";
   };
 
   build-system = [ setuptools ];
