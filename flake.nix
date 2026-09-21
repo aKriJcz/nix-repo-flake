@@ -79,6 +79,8 @@
           inherit (self.xorg) libX11 libXext libXinerama libXfixes libXtst;
         };
 
+        dbeaver = self.callPackage ./pkgs/dbeaver-bin {};
+
         # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md#how-to-override-a-python-package-for-all-python-versions-using-extensions-how-to-override-a-python-package-for-all-python-versions-using-extensions
         pythonPackagesExtensions = super.pythonPackagesExtensions ++ [
           (python-self: python-super: {
