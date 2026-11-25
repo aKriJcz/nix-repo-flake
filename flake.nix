@@ -42,10 +42,11 @@
       # nix build .#firebirds.firebird_5
       # nix build .#perlnavigator
       # nix build .#googletakeoutfixer
+      # nix build .#activitywatch
       packages = forAllSystems (system:
         let pkgs = pkgsFor system; in
         {
-          inherit (pkgs) perl firebirds perlnavigator ratarmount googletakeoutfixer;
+          inherit (pkgs) perl firebirds perlnavigator ratarmount googletakeoutfixer activitywatch;
           huestacean = pkgs.huestacean;
         }
       );
@@ -80,6 +81,12 @@
         };
 
         dbeaver = self.callPackage ./pkgs/dbeaver-bin {};
+
+        # ActivityWatch 0.14 (nixpkgs has 0.13.2), same attributes as in nixpkgs.
+        inherit (self.qt6Packages.callPackage ./pkgs/activitywatch {})
+          aw-qt aw-notify aw-server-rust aw-watcher-afk aw-watcher-window;
+
+        activitywatch = self.callPackage ./pkgs/activitywatch/wrapper.nix {};
 
         # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md#how-to-override-a-python-package-for-all-python-versions-using-extensions-how-to-override-a-python-package-for-all-python-versions-using-extensions
         pythonPackagesExtensions = super.pythonPackagesExtensions ++ [
